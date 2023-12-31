@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  deleteOrder,
   changeStatus,
   getAllOrders,
   getDetailByUserId,
