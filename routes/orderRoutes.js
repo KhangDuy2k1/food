@@ -10,7 +10,7 @@ import {
 } from '../controller/ordersController.js'
 const router = express.Router()
 
-router.delete('/hello', deleteOrder)
+router.delete('/del', deleteOrder)
 router.get('/getall', getAllOrders)
 router.get('/detail/:orderid', getOrderDetail)
 router.post('/add', order)
