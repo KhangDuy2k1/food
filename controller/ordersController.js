@@ -25,14 +25,14 @@ export const order = async (req, res) => {
 }
 
 export const getAllOrders = async (req, res) => {
-  const { page, pageSize } = req.query;
-  const newOffset = (page - 1)*pageSize;
+  // const { page, pageSize } = req.query;
+  // const newOffset = (page - 1)*pageSize;
   let queryString;
-  if(page && pageSize) { 
-     queryString = `SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id LIMIT pageSize OFFSET = ${newOffset}`;
-  }else {
+  // if(page && pageSize) { 
+  //    queryString = `SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id LIMIT pageSize OFFSET = ${newOffset}`;
+  // }else {
      queryString = `SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id`
-  }
+  // }
   const totalQuery = `SELECT COUNT(*) FROM orders INNER JOIN users ON orders.user_id = users.user_id`
 
   try {
