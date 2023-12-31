@@ -101,6 +101,7 @@ export const updateAddress = async (req, res) => {
 }
 export const deleteUser = async(req, res) => { 
       try {
+        console.log(req.query.id)
         const result = await pool.query(`delete from users where user_id = ${req.query.id}`)
         res.status(200).json({
           message: "Xoa thanh cong"
