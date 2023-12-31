@@ -99,3 +99,15 @@ export const updateAddress = async (req, res) => {
     res.status(500).json({ error })
   }
 }
+export const deleteUser = async(req, res) => { 
+      try {
+        const result = await pool.query(`delete from users where user_id = ${req.query.id}`)
+        res.status(200).json({
+          message: "Xoa thanh cong"
+        })
+      } catch (error) {
+        res.status(500).json({
+          message: "loi server"
+        })
+      }
+}
