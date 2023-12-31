@@ -108,14 +108,14 @@ export const getDetailByUserId = async (req, res) => {
   }
 }
 export const deleteOrder = async(req, res) => { 
-    // try {
-      // const result = await pool.query(`delete from orders where order_id = ${req.query.id}`)
+    try {
+      const result = await pool.query(`delete from orders where order_id = ${req.query.id}`)
       res.status(200).json({
         message: "xóa thành công"
       })
-    // } catch (error) {
-    //   res.status(500).json({ 
-    //     message: "lỗi xảy ra"
-    //   })
-    // }
+    } catch (error) {
+      res.status(500).json({ 
+        message: "lỗi xảy ra"
+      })
+    }
 }
