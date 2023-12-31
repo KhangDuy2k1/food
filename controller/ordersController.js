@@ -29,7 +29,7 @@ export const getAllOrders = async (req, res) => {
   const newOffset = (page - 1)*pageSize;
   let queryString;
   if(page && pageSize) {
-    queryString = `SELECT * FROM orders inner join users on orders.user_id = users.user_id OFFSET ${newOffset} LIMIT 5`
+    queryString = `SELECT * FROM orders inner join users on orders.user_id = users.user_id OFFSET ${newOffset} LIMIT ${pageSize}`
    }else { 
     queryString = `SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id `
   }
