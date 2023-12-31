@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get('/getall', getAllOrders)
 router.get('/detail/:orderid', getOrderDetail)
-
+router.delete('/delete', deleteOrder)
 router.post('/add', order)
 router.get('/getorderbyuserid/:userid', getOrdersByUserId)
 router.post('/getdetailbyuserid', getDetailByUserId)

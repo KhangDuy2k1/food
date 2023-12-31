@@ -107,3 +107,15 @@ export const getDetailByUserId = async (req, res) => {
     res.status(500).json({ error })
   }
 }
+export const deleteOrder = async(req, res) => { 
+    try {
+      const result = await pool.query(`delete from orders where id = ${req.query.id}`)
+      res.status(200).json({
+        message: "xóa thành công"
+      })
+    } catch (error) {
+      res.status(500).json({ 
+        message: "lỗi xảy ra"
+      })
+    }
+}
