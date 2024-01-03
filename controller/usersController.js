@@ -112,3 +112,15 @@ export const deleteUser = async(req, res) => {
         })
       }
 }
+  export const getDetailUser = async(req, res) => { 
+        try {
+          const result = await pool.query(`select * from users where user_id = ${req.query.id}`)
+          res.status(200).json({
+              data: result
+          })
+        } catch (error) {
+          res.status(500).json({
+            message: "lỗi"
+          })
+        }
+    }
