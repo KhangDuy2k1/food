@@ -116,7 +116,7 @@ export const deleteUser = async(req, res) => {
         try {
           const result = await pool.query(`select * from users where user_id = ${req.query.id}`)
           res.status(200).json({
-              data: result
+              data: result.rows
           })
         } catch (error) {
           res.status(500).json({
