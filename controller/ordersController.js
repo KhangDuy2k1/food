@@ -123,14 +123,15 @@ export const deleteOrder = async(req, res) => {
     }
 }
 export const getOrderSort = async(req, res) => { 
-        const { news, tlc, cxt } = req.query
         try {
-          if(tlc){ 
-            
-              const result = await pool.query(`SELECT * FROM orders ORDER BY total_price ASC`)
-              console.log(result)
-          }
-        } catch (error) {
+              const result = await pool.query(`SELECT * FROM orders ORDER BY order_date DESC`)
+              res.status(200).json({
+                  data: result.rows
+              })
           
+        } catch (error) {
+              res.status(500).json({
+                  messaga: "lỗi"
+              })
         }
 }
