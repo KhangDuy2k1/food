@@ -114,12 +114,19 @@ export const deleteUser = async(req, res) => {
 }
   export const getDetailUser = async(req, res) => { 
         try {
-         const [userDetail, totalOrder ] =  await Promise.all([pool.query(`select * from users where user_id = ${req.query.id}`),pool.query(`select count(*) as totalOrder from users join orders on users.user_id = orders.user_id where user_id = ${req.query.id}` ) ])
+         const [userDetail, totalOrder ] =  await Promise.all(
+          [
+            pool.query(`SELECT * FROM users WHERE user_id = ${req.query.id}`),
+
+            pool.query(`SELECT count(*) AS totalOrder FROM orders WHERE user_id = ${req.query.id}`)
+          ])
+          console.log(userDetail)
           res.status(200).json({
               data: userDetail.rows,
-              total: totalOrder
+              total: totalOrder.rows
           })
         } catch (error) {
+          console.log(error)
           res.status(500).json({
             message: "lỗi"
           })
