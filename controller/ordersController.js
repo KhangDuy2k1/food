@@ -5,7 +5,7 @@ export const order = async (req, res) => {
 
   try {
     const order = await pool.query(
-      `INSERT INTO orders (user_id, status, total_price, store_name) VALUES ('${userid}', '0', ${total_price}, '${store_name}') RETURNING order_id`,
+      `INSERT INTO orders (user_id, status, total_price, store_name) VALUES ('${userid}', '0', '${total_price}', '${store_name}') RETURNING order_id`,
     )
     const orderid = order.rows[0].order_id
 
