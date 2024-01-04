@@ -5,7 +5,7 @@ export const order = async (req, res) => {
 
   try {
     const order = await pool.query(
-      `INSERT INTO orders (user_id, status, total_price, store_name) VALUES ('${userid}', '0', '${total_price}', '${store_name}') RETURNING order_id`,
+      `INSERT INTO orders (user_id, status, total_price, store_name) VALUES ('${userid}', '0', ${total_price}, '${store_name}') RETURNING order_id`,
     )
     const orderid = order.rows[0].order_id
 
@@ -121,4 +121,16 @@ export const deleteOrder = async(req, res) => {
         message: "lỗi xảy ra"
       })
     }
+}
+export const getOrderSort = async(req, res) => { 
+        const { news, tlc, cxt } = req.query
+        try {
+          if(tlc){ 
+            
+              const result = await pool.query(`SELECT * FROM orders ORDER BY total_price ASC`)
+              console.log(result)
+          }
+        } catch (error) {
+          
+        }
 }

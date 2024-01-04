@@ -9,7 +9,7 @@ import {
 } from '../controller/productController.js'
 const router = express.Router();
 
-router.get('/getAllProducts/', getAllProducts)
+router.get('/getAllProducts', getAllProducts)
 router.get('/getProduct/:productid', getProduct)
 router.get('/searchProducts/:name', searchProducts)
 router.post('/add', addProduct)

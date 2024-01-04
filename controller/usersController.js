@@ -120,7 +120,7 @@ export const deleteUser = async(req, res) => {
 
             pool.query(`SELECT count(*) AS totalOrder FROM orders WHERE user_id = ${req.query.id}`)
           ])
-          console.log(userDetail)
+          console.log(userDetail, totalOrder)
           res.status(200).json({
               data: userDetail.rows,
               total: totalOrder.rows
