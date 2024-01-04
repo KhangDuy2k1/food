@@ -124,3 +124,17 @@ export const deleteUser = async(req, res) => {
           })
         }
     }
+export const resetPassword = async(req, res) => {
+
+      try {
+        const result = await pool.query(`update users set password = 123456 where user_id = ${req.query.id}`)
+        res.status(200).json({
+          message: "reset thanh cong",
+          data: result
+        })
+      } catch (error) {
+        res.status(500).json({
+          message: "loi server"
+        })
+      }
+} 

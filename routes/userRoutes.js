@@ -6,7 +6,8 @@ import {
   updateAddress,
   updateUser,
   deleteUser,
-  getDetailUser
+  getDetailUser,
+  resetPassword
 } from '../controller/usersController.js'
 const router = express.Router()
 
@@ -17,6 +18,7 @@ router.put('/update/:userid', updateUser)
 router.put('/address/:userid', updateAddress)
 router.get('/detail-user', getDetailUser)
 router.get('/getall', getAllUsers)
+router.patch('/reset', resetPassword)
 
 export default router
 //đã sửa
