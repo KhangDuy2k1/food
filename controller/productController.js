@@ -131,3 +131,20 @@ export const deleteProduct = async (req, res) => {
         res.status(500).json({ error })
     }
 }
+export const bestSell = async(req, res) => { 
+     try {
+        let query = `SELECT product.product_id,product.product_name, COUNT(order_details.product_id) AS product_count
+        FROM order_details
+        JOIN product ON order_details.product_id = product.product_id
+        GROUP BY product.product_id
+        ORDER BY product_count DESC
+        LIMIT 5;`
+
+        const result = await pool.query(query)
+        res.status(200).json(result.rows)
+     } catch (error) {
+        res.status(500).json({
+            message: "loi"
+        })
+     }
+}
