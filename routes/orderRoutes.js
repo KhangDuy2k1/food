@@ -7,7 +7,7 @@ import {
   getOrderDetail,
   getOrdersByUserId,
   order,
-  getOrderSort
+  getOrderSort,
 } from '../controller/ordersController.js'
 const router = express.Router()
 
@@ -20,5 +20,4 @@ router.post('/getdetailbyuserid', getDetailByUserId)
 
 router.put('/update/status/:orderid', changeStatus)
 router.get('/sort-new', getOrderSort)
-
 export default router

@@ -133,3 +133,19 @@ export const deleteStore = async (req, res) => {
         res.status(500).json({ error })
     }
 }
+export const bestMoneyStore = async(req, res) => { 
+    try {
+        let query = `SELECT store.store_id, store.store_name, orders.total_price FROM store 
+        INNER JOIN product ON store.store_id = product.store_id 
+        INNER JOIN order_details ON product.product_id = order_details.product_id
+        INNER JOIN orders ON order_details.order_id = orders.order_id
+        `
+        const result =await pool.query(query)
+        res.status(200).json(result.rows)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            message: "lỗi server"
+        })
+    }
+}
