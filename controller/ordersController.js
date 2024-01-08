@@ -141,7 +141,9 @@ export const findOrder = async(req, res) => {
           
           let result = await pool.query(`select * from orders
           inner join users on users.user_id = orders.user_id
-          where phone like '%${text}%'`)
+          where phone like '%${text}%'
+          limit 8
+          `)
           res.status(200).json(result.rows)
         } catch (error) {
           res.status(500).json({
