@@ -8,7 +8,8 @@ import {
   getOrdersByUserId,
   order,
   getOrderSort,
-  findOrder
+  findOrder,
+  updateOrder
 } from '../controller/ordersController.js'
 const router = express.Router()
 
@@ -20,5 +21,6 @@ router.get('/getorderbyuserid/:userid', getOrdersByUserId)
 router.post('/getdetailbyuserid', getDetailByUserId)
 router.get('/find', findOrder)
 router.put('/update/status/:orderid', changeStatus)
+router.patch('/update', updateOrder)
 router.get('/sort-new', getOrderSort)
 export default router

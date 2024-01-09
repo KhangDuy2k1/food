@@ -136,7 +136,7 @@ export const getOrderSort = async(req, res) => {
         }
 }
 export const findOrder = async(req, res) => { 
-        let {text} = req.query
+        let {text} = req.query  
         try {
           
           let result = await pool.query(`select * from orders
@@ -149,5 +149,37 @@ export const findOrder = async(req, res) => {
           res.status(500).json({
             message: "lỗi"
           })
+        }
+}
+export const updateOrder = async(req, res) => { 
+        const {id} = req.query
+        const {phone, address, status} = req.body
+        try {
+          const result2 = await pool.query(
+            `
+              select user_id from orders where order_id = ${id}
+            `
+          )          
+        const [orderUpdate, userUpdate] =  await Promise.all([
+            pool.query(
+              `UPDATE orders
+               SET status = '${status}'
+               WHERE order_id = '${id}'`
+            ),
+            pool.query(
+              `UPDATE users
+              SET address = '${address}',
+                  phone = '${phone}'
+              WHERE user_id = '${result2.rows[0].user_id}'`
+              
+            )
+          ])
+          res.status(200).json({
+            message: "Cập nhật thành công"
+          })
+        } catch (error) {
+           res.status(500).json({
+            message: "lỗi"
+           })         
         }
 }
