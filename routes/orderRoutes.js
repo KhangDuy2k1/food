@@ -9,7 +9,8 @@ import {
   order,
   getOrderSort,
   findOrder,
-  updateOrder
+  updateOrder,
+  countOrderByStatus
 } from '../controller/ordersController.js'
 const router = express.Router()
 
@@ -23,4 +24,5 @@ router.get('/find', findOrder)
 router.put('/update/status/:orderid', changeStatus)
 router.patch('/update', updateOrder)
 router.get('/sort-new', getOrderSort)
+router.get('/count-order-status', countOrderByStatus)
 export default router

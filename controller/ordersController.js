@@ -183,3 +183,18 @@ export const updateOrder = async(req, res) => {
            })         
         }
 }
+
+export const countOrderByStatus = async(req, res) => { 
+      try {
+        const result = await pool.query(`
+        SELECT status, COUNT(status) 
+        FROM orders
+        GROUP BY status;
+        `)
+        res.status(200).json(result.rows)
+      } catch (error) {
+        res.status(500).json({
+          message: 'lỗi'
+        })
+      }
+}
