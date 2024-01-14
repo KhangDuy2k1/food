@@ -9,14 +9,25 @@ export const order = async (req, res) => {
     )
     const orderid = order.rows[0].order_id
 
-    for(const product of products){
-      await pool.query(
-        `INSERT INTO order_details (order_id, product_id, quantity, price) VALUES ('${orderid}', '${product.product_id}', '${product.quantity}', '${product.price}')`,
-      )
+
+    await Promise.all(products.map(async(product) => {
+         await Promise.all([
+            pool.query(
+              `INSERT INTO order_details (order_id, product_id, quantity, price) VALUES ('${orderid}', '${product.product_id}', '${product.quantity}', '${product.price}')`,
+            ),
+            pool.query(`DELETE FROM cart WHERE user_id = ${userid} AND product_id = ${product.product_id}`,)
+          ])
+    }))
+
+
+    // for(const product of products){
+    //   await pool.query(
+    //     `INSERT INTO order_details (order_id, product_id, quantity, price) VALUES ('${orderid}', '${product.product_id}', '${product.quantity}', '${product.price}')`,
+    //   )
       // const cartid = await pool.query(`SELECT cart_id FROM cart WHERE user_id = ${userid} AND product_id = ${product.product_id}`,)
 
-       await pool.query(`DELETE FROM cart WHERE user_id = ${userid} AND product_id = ${product.product_id}`,)
-    }
+    //    await pool.query(`DELETE FROM cart WHERE user_id = ${userid} AND product_id = ${product.product_id}`,)
+    // }
 
     res.status(200).json({ message: 'Order successfully' })
   } catch (error) {
