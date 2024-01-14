@@ -1,11 +1,11 @@
 import pool from '../database/index.js'
 
 export const order = async (req, res) => {
-  const { userid, products, total_price, store_name } = req.body
+  const { userid, products, total_price, store_name, address_order, phone_order } = req.body
 
   try {
     const order = await pool.query(
-      `INSERT INTO orders (user_id, status, total_price, store_name) VALUES ('${userid}', '0', '${total_price}', '${store_name}') RETURNING order_id`,
+      `INSERT INTO orders (user_id, status, total_price, store_name, address_order, phone_order) VALUES ('${userid}', '0', '${total_price}', '${store_name}', '${address_order}', '${phone_order}') RETURNING order_id`,
     )
     const orderid = order.rows[0].order_id
 
@@ -153,31 +153,21 @@ export const findOrder = async(req, res) => {
 }
 export const updateOrder = async(req, res) => { 
         const {id} = req.query
-        const {phone, address, status} = req.body
+        const {phone_order, address_order, status} = req.body
+        console.log(phone_order, address_order, status)
         try {
           const result2 = await pool.query(
             `
-              select user_id from orders where order_id = ${id}
+              UPDATE orders 
+              SET phone_order = '${phone_order}', address_order = '${address_order}', status = '${status}'
+              WHERE order_id = ${id};
             `
           )          
-        const [orderUpdate, userUpdate] =  await Promise.all([
-            pool.query(
-              `UPDATE orders
-               SET status = '${status}'
-               WHERE order_id = '${id}'`
-            ),
-            pool.query(
-              `UPDATE users
-              SET address = '${address}',
-                  phone = '${phone}'
-              WHERE user_id = '${result2.rows[0].user_id}'`
-              
-            )
-          ])
           res.status(200).json({
             message: "Cập nhật thành công"
           })
         } catch (error) {
+          console.error(error)
            res.status(500).json({
             message: "lỗi"
            })         
@@ -198,3 +188,14 @@ export const countOrderByStatus = async(req, res) => {
         })
       }
 }
+
+export const test = async (req, res) => {
+  try {
+    const result = await pool.query(`
+    select * from orders
+  `);
+   res.json(result.rows)
+  } catch (error) {
+    console.error(error);
+  }
+};

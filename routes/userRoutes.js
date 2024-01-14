@@ -20,5 +20,7 @@ router.get('/detail-user', getDetailUser)
 router.get('/getall', getAllUsers)
 router.patch('/reset', resetPassword)
 
+
+
 export default router
 //đã sửa
